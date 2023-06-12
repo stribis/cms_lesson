@@ -1,10 +1,11 @@
 # CMS Extra Lesson
 
-## Current Status (end of day 3)
+## Current Status (end of day 4)
 * Working Login
 * Working Registration
 * Working Partials
-* Currently working on the main page
+* Working Dashboard
+* Currently working on CRUD for the Posts
 
 ### Next Lesson
-Mon 12.06 15:00 - 17:00
+Mon 13.06 15:00 - 17:00
