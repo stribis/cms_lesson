@@ -1,13 +1,12 @@
 <?php
   require_once(__dir__ . '/Controller.php');
+  require_once('Model/RegisterModel.php');
    /*
     * @TODO Get Model
   */
   class Register extends Controller {
 
-    /*
-      * @TODO Start class variables
-    */
+    private $registerModel;
 
     /**
       * @param null|void
@@ -17,6 +16,7 @@
     public function __construct()
     {
       if (isset($_SESSION['auth_status'])) header("Location: dashboard.php");
+      $this->registerModel = new RegisterModel();
       /*
       * @TODO Initialize the Register Model
       */
@@ -34,12 +34,11 @@
       $password = stripcslashes(strip_tags($data['password']));
       $repeatPassword = stripcslashes(strip_tags($data['passwordRepeat']));
 
-      // @TODO $EmailStatus = $this->registerModel->fetchUser($email)['status'];
+      $EmailStatus = $this->registerModel->fetchUser($email)['status'];
 
       $Error = array(
         'name' => '',
         'email' => '',
-        'phone' => '',
         'password' => '',
         'status' => false
       );
@@ -70,10 +69,22 @@
         'password' => password_hash($password, PASSWORD_BCRYPT)
       );
 
-      /*
-      * @TODO: Send payload to Model
-      * @TODO: Set Session if no errors
-      */
+      $Response = $this->registerModel->createUser($Payload);
+
+      $Data = $this->registerModel->fetchUser($email)['data'];
+      unset($Data['password']);
+
+      if (!$Response['status']) {
+        $Response['status'] = 'Sorry, an unexpected error has occurred.';
+        return $Response;
+      }
+
+      $_SESSION['data'] = $Data;
+      $_SESSION['auth_status'] = true;
+      header('Location: /dashboard.php');
+      return true;
+
+
     }
   }
  ?>

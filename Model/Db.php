@@ -16,7 +16,7 @@ class Db {
   public function __construct()
   {
     // Connection Info
-    $dsn = 'mysql:host' . $this->dbHost .';dbname=' . $this->dbName;
+    $dsn = 'mysql:host=' . $this->dbHost .';dbname=' . $this->dbName;
     $options = array(
       PDO::ATTR_PERSISTENT => true,
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
