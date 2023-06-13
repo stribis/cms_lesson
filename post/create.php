@@ -4,7 +4,7 @@
   $Dashboard = new Dashboard();
   $Response = [];
   // $active = $Dashboard->active;
-  if (isset($_POST) && count($_POST) > 0) $Response = $Dashboard->createPost($_POST);
+  if (isset($_POST) && count($_POST) > 0 && isset($_FILES)) $Response = $Dashboard->createPost($_POST, $_FILES);
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-4">
               <div class="form-floating">
-                <input type="file" name="image" id="image" class="form-control" placeholder="Post Image" autofocus>
+                <input type="file" name="image" id="image" class="form-control" placeholder="Post Image" autofocus required>
                 <label for="image">Post Image</label>
                 <?php if (isset($Response['image']) && !empty($Response['image'])) : ?>
                   <small class="form-text text-danger"><?php echo $Response['image']; ?></small>

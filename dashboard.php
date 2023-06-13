@@ -5,7 +5,7 @@
   // $Response = [];
   // $active = $Dashboard->active;
   $Posts = $Dashboard->getPosts($_SESSION['data']['id']);
-  // if (isset($_GET['delete'])) $Dashboard->deletePost($_GET['delete']);
+  if (isset($_GET['delete'])) $Dashboard->deletePost($_GET['delete']);
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">

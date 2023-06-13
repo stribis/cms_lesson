@@ -1,11 +1,16 @@
 # CMS Extra Lesson
 
-## Current Status (end of day 4)
+## Current Status (end of day 5)
 * Working Login
 * Working Registration
 * Working Partials
 * Working Dashboard
-* Currently working on CRUD for the Posts
+* Working Post Creation
+* Working Post Deletion
 
 ### Next Lesson
-Mon 13.06 15:00 - 17:00
+Mon 19.06 15:00 - 17:00
+
+### Homework
+* Finish the edit post page
+* Finish the single post view page

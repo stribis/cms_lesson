@@ -47,6 +47,15 @@ class DashboardModel extends Db {
 
   }
 
+  public function deletePost (int $id) :bool {
+    $this->query("DELETE FROM `db_posts` WHERE `id` = :id AND `op` = :op");
+    $this->bind('id', $id);
+    $this->bind('op', $_SESSION['data']['id']);
+    $deleted = $this->execute();
+
+    return $deleted;
+  }
+
 
 
 
