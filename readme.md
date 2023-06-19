@@ -9,8 +9,12 @@
 * Working Post Deletion
 
 ### Next Lesson
-Mon 19.06 15:00 - 17:00
+Mon 20.06 14:00 - 17:30
 
 ### Homework
 * Finish the edit post page
 * Finish the single post view page
+
+#### To Review
+* Check if email is reserved while updating 
+* Remember me

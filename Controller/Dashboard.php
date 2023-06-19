@@ -92,6 +92,84 @@ class Dashboard extends Controller {
 
   }
 
+  public function getPost(int $id) :array {
+    return $this->dashboardModel->fetchPost($id);
+  }
+
+  public function editPost (array $data, int $id, $files) :array {
+    $title = stripcslashes(strip_tags($data['title']));
+    $email = stripcslashes(strip_tags($data['email']));
+    $message = stripcslashes(strip_tags($data['message']));
+    $image = $data['original'];
+
+    $Error = array ( 
+      'title' => '',
+      'email' => '',
+      'message' => '',
+      'image' => '',
+      'status' => false
+    );
+
+    if ( isset ($files['image']['name']) && $files['image']['size'] > 0) {
+      $imageName  = $data['original'];
+      $imagePath = '../uploads/' . $imageName;
+
+      $file = $files['image'];
+      $fileName = $file['name'];
+      $fileTmp = $file['tmp_name'];
+      $fileSize = $file['size'];
+      $fileError = $file['error'];
+
+      // Check for Errors
+      if ( $fileError === UPLOAD_ERR_OK ) {
+        if(file_exists($imagePath)) {
+          unlink($imagePath);
+        }
+        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = array('jpg', 'jpeg', 'gif', 'webp', 'png');
+
+        if (in_array($extension, $allowedExtensions)) {
+          $uniqueName = uniqid(('image_') . '_' .time());
+          $uniqueName .= '.' .$extension;
+          $uploadPath = '../uploads/' . $uniqueName;
+          move_uploaded_file($fileTmp, $uploadPath);
+          $image = $uniqueName;
+        } else { 
+          $Error['image'] = 'Only JPG, PNG, GIF and WebP allowed.';
+          return $Error;
+        }
+      } else { 
+        $Error['image'] = 'Error uploading your image, please try again.';
+        return $Error;
+      }
+    }
+
+    // Check if Correct characters
+
+    // check if message is long enough
+
+    // check if email is email
+
+    // USW:
+
+    $Payload = array (
+      'title' => $title,
+      'email' => $email,
+      'message' => $message,
+      'image' => $image
+    );
+
+    $Response = $this->dashboardModel->updatePost($Payload, $id);
+
+    if (!$Response['status']) {
+      $Response['status'] = 'Sorry, an unexpected error occurred :(.';
+      return $Response;
+    }
+
+    header("Location: /dashboard?updated");
+    return array(true);
+  }
+
 }
 
 
